@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use Laravel\Socialite\Facades\Socialite;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,5 +22,11 @@ use App\Http\Controllers\LoginController;
 //     return view('dashboard');
 // });
 Route::get('/dashboard',[LoginController::class, 'index']);
-Route::get('/',[LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/',[LoginController::class, 'showLoginForm']);
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::get('/google/redirect', [LoginController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('google.callback');
+
+Route::get('/facebook/redirect',[LoginController::class, 'redirectToFacebook'])->name('facebook.redirect');
+Route::get('/facebook/callback',[LoginController::class, 'handleFacebookCallback'])->name('facebook.callback');
